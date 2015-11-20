@@ -1,0 +1,21 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# MAC OS Files #
+.DS_Store
+
+# Eclipse Files #
+.project
+.metadata
+bin/
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# EvalBench generated #
+evaluationJournal/
