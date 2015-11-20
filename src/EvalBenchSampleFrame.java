@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.Locale;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -8,15 +9,19 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
-
 
 import evaluation.evalBench.EvaluationDelegate;
 import evaluation.evalBench.EvaluationManager;
+import evaluation.evalBench.images.ImageTask;
+import evaluation.evalBench.io.XMLTaskListCreator;
 import evaluation.evalBench.panel.TaskDialog;
 import evaluation.evalBench.session.EvaluationSession;
 import evaluation.evalBench.session.EvaluationSessionGroup;
 import evaluation.evalBench.task.Task;
+import evaluation.evalBench.task.TaskList;
 
 
 public class EvalBenchSampleFrame extends JFrame implements EvaluationDelegate {
@@ -30,11 +35,43 @@ public class EvalBenchSampleFrame extends JFrame implements EvaluationDelegate {
 	
 	private TaskDialog taskDialog;
 
+	/**
+	 * start point
+	 * @param args not used
+	 */
+	public static void main(String[] args) {
+	    Locale.setDefault(Locale.US);
+		initLnf();
+
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				EvaluationDelegate delegate = new EvalBenchSampleFrame();
+				EvaluationManager.getInstance().setDelegate(delegate);
+				prepareEvalBench();
+			}
+		});
+	}
+	
+	/**
+	 * init look and feel (tries to set the system look and feel)
+	 */
+	private static void initLnf() {
+		System.setProperty("apple.laf.useScreenMenuBar", "true");
+		System.setProperty("apple.awt.showGrowBox", "false");
+		System.setProperty("apple.awt.brushMetalLook", "false");
+		System.setProperty("apple.awt.brushMetalRounded", "true");
+
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			System.err.println("could not set look and feel " + e.getLocalizedMessage());
+		}
+	}
 	
 	/**
 	 * Initialize new Frame with title and add a visualization panel
 	 */
-	public EvalBenchSampleFrame(){
+	private EvalBenchSampleFrame(){
 		this.setTitle(FRAME_TITLE);
 		setJMenuBar(createMenuBar());
 		
@@ -42,6 +79,13 @@ public class EvalBenchSampleFrame extends JFrame implements EvaluationDelegate {
 		
 		add(visPanel, BorderLayout.CENTER);
 		taskDialog= new TaskDialog(null);
+		
+		setDefaultCloseOperation(EvalBenchSampleFrame.DISPOSE_ON_CLOSE);
+
+		pack();
+		setLocationRelativeTo(null);
+
+		setVisible(true);
 	}
 	
 	/**
@@ -144,6 +188,51 @@ public class EvalBenchSampleFrame extends JFrame implements EvaluationDelegate {
 	
 
 	/*
+	 * ------------------- Initial Evaluation Configuration -------------------
+	 */
+	
+	/**
+	 * In the EvalBench demo this used to be in <tt>EvalAction</tt>.
+	 */
+	public static void prepareEvalBench() {
+		// change journal to xml type  
+		//EvaluationManager.getInstance().setJournalFactory(new XMLJournalFactory());
+
+		// consider extended tasks in task list creation
+		XMLTaskListCreator taskListCreator = new XMLTaskListCreator();
+		taskListCreator.setClassesToBeBound(TaskList.class, ImageTask.class);
+		EvaluationManager.getInstance().setTaskListCreator(taskListCreator);
+		
+		// create new session group for participant one
+		EvaluationSessionGroup sessionGroup = new EvaluationSessionGroup("participant1");
+		
+		// create training session for visualization type A
+		EvaluationSession trainingA = new EvaluationSession("TrainingA"); 
+		trainingA.getConfiguration().put("VisualizationType", "A");
+		
+		// create actual session for visualization type A
+		EvaluationSession sessionA = new EvaluationSession("EvaluationA"); 
+		sessionA.getConfiguration().put("VisualizationType", "A");
+		
+		// create training session for visualization type B
+		EvaluationSession trainingB = new EvaluationSession("TrainingB"); 
+		trainingB.getConfiguration().put("VisualizationType", "B");
+		
+		// create actual session for visualization type A
+		EvaluationSession sessionB = new EvaluationSession("EvaluationB"); 
+		sessionB.getConfiguration().put("VisualizationType", "B");
+		
+		// add sessions to group
+		sessionGroup.addSession(trainingA); 
+		sessionGroup.addSession(sessionA); 
+		sessionGroup.addSession(trainingB); 
+		sessionGroup.addSession(sessionB);
+		
+		// set session group (triggers execution of session group)
+		EvaluationManager.getInstance().setSessionGroup(sessionGroup); 
+	}
+	
+	/*
 	 * ------------------- Evaluation Delegate Methods -------------------
 	 */
 	
@@ -157,8 +246,9 @@ public class EvalBenchSampleFrame extends JFrame implements EvaluationDelegate {
 						
 		// add an evaluation frame to the right side of the frame.  
 		addEvaluationPanel();
+		
 		// choose a session and trigger the execution with a defined task list (demotasks.xml)
-		EvaluationManager.getInstance().startEvaluationSession(sessionGroup.getSessionList().get(0), "xml/demotasks.xml"); 
+		EvaluationManager.getInstance().startEvaluationSession(sessionGroup.getSessionList().get(0), "xml/image-tasks.xml"); 
 		
 	}
 	
@@ -170,7 +260,7 @@ public class EvalBenchSampleFrame extends JFrame implements EvaluationDelegate {
 		// prepare for a evaluation session, e.g. load a dataset for the visualization
 		
 		// show an info dialog 
-        taskDialog.announceSession(aSession, true);
+//        taskDialog.announceSession(aSession, true);
 		
 	}
 	
@@ -195,10 +285,11 @@ public class EvalBenchSampleFrame extends JFrame implements EvaluationDelegate {
 	 */
 	public void prepareForEvaluationTask(Task aTask) {
 		
-        taskDialog.showDescription(aTask);
+//        taskDialog.showDescription(aTask);
         
 		// get a task panel from the manager
 		setMyEvaluationPanel( EvaluationManager.getInstance().getPanelForTask(aTask));
+		System.err.println(aTask);
 	}
 
 	/**
