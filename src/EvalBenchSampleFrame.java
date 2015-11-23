@@ -5,8 +5,6 @@ import java.util.Locale;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -15,6 +13,7 @@ import javax.swing.border.LineBorder;
 
 import evaluation.evalBench.EvaluationDelegate;
 import evaluation.evalBench.EvaluationManager;
+import evaluation.evalBench.images.ImageGrid;
 import evaluation.evalBench.images.ImageTask;
 import evaluation.evalBench.io.XMLTaskListCreator;
 import evaluation.evalBench.panel.TaskDialog;
@@ -32,6 +31,8 @@ public class EvalBenchSampleFrame extends JFrame implements EvaluationDelegate {
 
 	private JPanel evalPanel;
 	private JPanel visPanel;
+	
+	private ImageGrid imageGrid;
 	
 	private TaskDialog taskDialog;
 
@@ -62,7 +63,8 @@ public class EvalBenchSampleFrame extends JFrame implements EvaluationDelegate {
 		System.setProperty("apple.awt.brushMetalRounded", "true");
 
 		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		} catch (Exception e) {
 			System.err.println("could not set look and feel " + e.getLocalizedMessage());
 		}
@@ -73,7 +75,7 @@ public class EvalBenchSampleFrame extends JFrame implements EvaluationDelegate {
 	 */
 	private EvalBenchSampleFrame(){
 		this.setTitle(FRAME_TITLE);
-		setJMenuBar(createMenuBar());
+//		setJMenuBar(createMenuBar());
 		
 		visPanel = getVisualizationPanel(true); 
 		
@@ -88,19 +90,19 @@ public class EvalBenchSampleFrame extends JFrame implements EvaluationDelegate {
 		setVisible(true);
 	}
 	
-	/**
-	 * create a new menu bar
-	 * @return menubar
-	 */
-	private JMenuBar createMenuBar() {
-		final JMenuBar bar = new JMenuBar();
-		
-		final JMenu evalMenu = new JMenu("Evaluation");
-		evalMenu.add(new EvalAction());
-		bar.add(evalMenu);
-
-		return bar;
-	}
+//	/**
+//	 * create a new menu bar
+//	 * @return menubar
+//	 */
+//	private javax.swing.JMenuBar createMenuBar() {
+//		final javax.swing.JMenuBar bar = new javax.swing.JMenuBar();
+//		
+//		final javax.swing.JMenu evalMenu = new javax.swing.JMenu("Evaluation");
+//		evalMenu.add(new EvalAction());
+//		bar.add(evalMenu);
+//
+//		return bar;
+//	}
 	
 	/**
 	 * create a JPanel with a visualization
@@ -131,8 +133,8 @@ public class EvalBenchSampleFrame extends JFrame implements EvaluationDelegate {
 		visPanel.setVisible(false);
 		visPanel.removeAll();
 		visPanel.add(new JLabel("<html><body>" +
-				"<center><b>Visualization Panel</b></center><br>" +
-				"Choose <i>Evaluation</i> in the menu bar to start the evaluation</body>" +
+				"<center><b>Thank you</b></center><br>" +
+				"The Evaluation is now complete.</body>" +
 				"</html>", JLabel.CENTER), BorderLayout.CENTER);
 		visPanel.setVisible(true);
 		pack();
@@ -142,9 +144,8 @@ public class EvalBenchSampleFrame extends JFrame implements EvaluationDelegate {
 	{
 		visPanel.setVisible(false);
 		visPanel.removeAll();
-		visPanel.add(new JLabel("<html><body>" +
-				"<center><b>Visualization Panel</b></center>"
-				, JLabel.CENTER), BorderLayout.CENTER);
+		imageGrid = new ImageGrid(null);
+		visPanel.add(imageGrid, BorderLayout.CENTER);
 		visPanel.setVisible(true);
 		pack();
 	}
@@ -209,6 +210,7 @@ public class EvalBenchSampleFrame extends JFrame implements EvaluationDelegate {
 		// create training session for visualization type A
 		EvaluationSession trainingA = new EvaluationSession("TrainingA"); 
 		trainingA.getConfiguration().put("VisualizationType", "A");
+		trainingA.getConfiguration().put("Training", "true");
 		
 		// create actual session for visualization type A
 		EvaluationSession sessionA = new EvaluationSession("EvaluationA"); 
@@ -287,15 +289,24 @@ public class EvalBenchSampleFrame extends JFrame implements EvaluationDelegate {
 		
 //        taskDialog.showDescription(aTask);
         
+		if (ImageTask.class.isInstance(aTask)) {
+			ImageTask iTask = (ImageTask) aTask;
+			imageGrid.setImages(iTask.getImages(), iTask.getBaseUrl());
+		}
+		
 		// get a task panel from the manager
 		setMyEvaluationPanel( EvaluationManager.getInstance().getPanelForTask(aTask));
-		System.err.println(aTask);
 	}
 
 	/**
 	 * a task from the current session was answered
 	 */
 	public void evaluationTaskWasAnswered(Task aTask) {
+
+		if (ImageTask.class.isInstance(aTask)) {
+//			ImageTask iTask = (ImageTask) aTask;
+			System.err.println("selected images: " + java.util.Arrays.toString(imageGrid.getSelectedTiles().toArray()));
+		}
 		
         // do something after a task was finished (e.g. update GUI)
         if ("true".equals(aTask.getConfiguration().get("Training"))) {

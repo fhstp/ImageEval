@@ -18,6 +18,9 @@ public class ValuedImage {
 	@XmlAttribute(required=false)
 	public double value = Double.NaN;
 
+	@XmlAttribute(required=false, name="initial-selection")
+	public boolean initialSelection = false;
+
 	@Override
 	public String toString() {
 		return value + "|" + url;
