@@ -23,7 +23,7 @@ import evaluation.evalBench.task.Task;
 import evaluation.evalBench.task.TaskList;
 
 
-public class EvalBenchSampleFrame extends JFrame implements EvaluationDelegate {
+public class ImageEvalBenchLauncher extends JFrame implements EvaluationDelegate {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -46,7 +46,7 @@ public class EvalBenchSampleFrame extends JFrame implements EvaluationDelegate {
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				EvaluationDelegate delegate = new EvalBenchSampleFrame();
+				EvaluationDelegate delegate = new ImageEvalBenchLauncher();
 				EvaluationManager.getInstance().setDelegate(delegate);
 				prepareEvalBench();
 			}
@@ -73,7 +73,7 @@ public class EvalBenchSampleFrame extends JFrame implements EvaluationDelegate {
 	/**
 	 * Initialize new Frame with title and add a visualization panel
 	 */
-	private EvalBenchSampleFrame(){
+	private ImageEvalBenchLauncher(){
 		this.setTitle(FRAME_TITLE);
 //		setJMenuBar(createMenuBar());
 		
@@ -82,7 +82,7 @@ public class EvalBenchSampleFrame extends JFrame implements EvaluationDelegate {
 		add(visPanel, BorderLayout.CENTER);
 		taskDialog= new TaskDialog(null);
 		
-		setDefaultCloseOperation(EvalBenchSampleFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(ImageEvalBenchLauncher.DISPOSE_ON_CLOSE);
 
 		pack();
 		setLocationRelativeTo(null);
