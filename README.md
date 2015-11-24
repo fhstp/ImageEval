@@ -2,6 +2,8 @@
 runnable apparatus for a user study with static images on top of 
 [EvalBench](https://github.com/ieg-vienna/EvalBench)
 
+Warning: This project is far from finished.
+
 REQUIREMENTS
 ------------
 ImageEval is written in Java 1.6. To compile the ImageEval code you'll need 
