@@ -22,6 +22,12 @@ import javax.swing.event.ListSelectionListener;
 
 // based on http://stackoverflow.com/a/26215276/1140589
 
+/**
+ * grid of images implemented using Swing {@link JList}.
+ * Currently not in use.
+ * @author Alexander Rind
+ * @deprecated
+ */
 @SuppressWarnings("serial")
 public class ImageGrid extends JPanel {
 

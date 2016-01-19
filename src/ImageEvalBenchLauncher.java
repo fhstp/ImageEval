@@ -13,7 +13,7 @@ import javax.swing.border.LineBorder;
 
 import evaluation.evalBench.EvaluationDelegate;
 import evaluation.evalBench.EvaluationManager;
-import evaluation.evalBench.images.ImageGrid;
+import evaluation.evalBench.images.ImageGrid2;
 import evaluation.evalBench.images.ImageTask;
 import evaluation.evalBench.io.XMLTaskListCreator;
 import evaluation.evalBench.panel.TaskDialog;
@@ -32,7 +32,7 @@ public class ImageEvalBenchLauncher extends JFrame implements EvaluationDelegate
 	private JPanel evalPanel;
 	private JPanel visPanel;
 	
-	private ImageGrid imageGrid;
+	private ImageGrid2 imageGrid;
 	
 	private TaskDialog taskDialog;
 
@@ -82,7 +82,7 @@ public class ImageEvalBenchLauncher extends JFrame implements EvaluationDelegate
 		add(visPanel, BorderLayout.CENTER);
 		taskDialog= new TaskDialog(null);
 		
-		setDefaultCloseOperation(ImageEvalBenchLauncher.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		pack();
 		setLocationRelativeTo(null);
@@ -144,7 +144,7 @@ public class ImageEvalBenchLauncher extends JFrame implements EvaluationDelegate
 	{
 		visPanel.setVisible(false);
 		visPanel.removeAll();
-		imageGrid = new ImageGrid(null);
+		imageGrid = new ImageGrid2();
 		visPanel.add(imageGrid, BorderLayout.CENTER);
 		visPanel.setVisible(true);
 		pack();
