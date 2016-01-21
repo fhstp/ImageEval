@@ -292,6 +292,9 @@ public class ImageEvalBenchLauncher extends JFrame implements EvaluationDelegate
 		if (ImageTask.class.isInstance(aTask)) {
 			ImageTask iTask = (ImageTask) aTask;
 			imageGrid.setImages(iTask.getImages(), iTask.getBaseUrl());
+			imageGrid.setInteractive(false);
+		} else {
+			imageGrid.clear();
 		}
 		
 		// get a task panel from the manager

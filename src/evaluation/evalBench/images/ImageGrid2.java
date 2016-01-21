@@ -92,7 +92,39 @@ public class ImageGrid2 extends JPanel {
 		return result;
 	}
 	
-	public class ClickListener extends MouseAdapter {
+	public void clear() {
+		grid.removeAll();
+	}
+
+	public int getRowCount() {
+		return rowcount;
+	}
+
+	/**
+	 * This must be set after {@link ImageGrid#setImages(ValuedImage[], String)}.
+	 * @param rowcount
+	 */
+	public void setRowCount(int rowcount) {
+		this.rowcount = rowcount;
+	}
+
+	public boolean isMultipleSelection() {
+		return multipleSelection;
+	}
+
+	public void setMultipleSelection(boolean multipleSelection) {
+		this.multipleSelection = multipleSelection;
+	}
+
+	public boolean isInteractive() {
+		return interactive;
+	}
+
+	public void setInteractive(boolean interactive) {
+		this.interactive = interactive;
+	}
+
+	private class ClickListener extends MouseAdapter {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
