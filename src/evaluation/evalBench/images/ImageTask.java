@@ -10,7 +10,7 @@ import evaluation.evalBench.task.Task;
 
 /**
  * extends {@link Task} with an array of {@link ValuedImage} and an optional base url.
- * @author rind
+ * @author Alexander Rind
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ImageTask extends Task {

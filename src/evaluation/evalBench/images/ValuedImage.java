@@ -8,7 +8,8 @@ import javax.xml.bind.annotation.XmlValue;
 /**
  * basic data structure for an image url with optional double value.
  * <tt>NaN</tt> is used for undefined value.
- * @author rind
+ * Objects are used by {@link ImageTask}.
+ * @author Alexander Rind
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ValuedImage {

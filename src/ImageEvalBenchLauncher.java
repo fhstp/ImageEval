@@ -13,7 +13,10 @@ import javax.swing.border.LineBorder;
 
 import evaluation.evalBench.EvaluationDelegate;
 import evaluation.evalBench.EvaluationManager;
+import evaluation.evalBench.images.ImageEvaluationPanelFactory;
 import evaluation.evalBench.images.ImageGrid2;
+import evaluation.evalBench.images.MultiImageSelectionQuestion;
+import evaluation.evalBench.images.SingleImageSelectionQuestion;
 import evaluation.evalBench.images.ImageTask;
 import evaluation.evalBench.io.XMLTaskListCreator;
 import evaluation.evalBench.panel.TaskDialog;
@@ -21,7 +24,6 @@ import evaluation.evalBench.session.EvaluationSession;
 import evaluation.evalBench.session.EvaluationSessionGroup;
 import evaluation.evalBench.task.Task;
 import evaluation.evalBench.task.TaskList;
-
 
 public class ImageEvalBenchLauncher extends JFrame implements EvaluationDelegate {
 	
@@ -201,7 +203,8 @@ public class ImageEvalBenchLauncher extends JFrame implements EvaluationDelegate
 
 		// consider extended tasks in task list creation
 		XMLTaskListCreator taskListCreator = new XMLTaskListCreator();
-		taskListCreator.setClassesToBeBound(TaskList.class, ImageTask.class);
+		taskListCreator.setClassesToBeBound(TaskList.class, ImageTask.class,
+				SingleImageSelectionQuestion.class, MultiImageSelectionQuestion.class);
 		EvaluationManager.getInstance().setTaskListCreator(taskListCreator);
 		
 		// create new session group for participant one
@@ -249,6 +252,10 @@ public class ImageEvalBenchLauncher extends JFrame implements EvaluationDelegate
 		// add an evaluation frame to the right side of the frame.  
 		addEvaluationPanel();
 		
+		// panel factory will link ImageGrid2 to Question objects <-- ImageGrid2 must exist
+		ImageEvaluationPanelFactory panelFactory = new ImageEvaluationPanelFactory(imageGrid);
+		EvaluationManager.getInstance().setPanelFactory(panelFactory);
+
 		// choose a session and trigger the execution with a defined task list (demotasks.xml)
 		EvaluationManager.getInstance().startEvaluationSession(sessionGroup.getSessionList().get(0), "xml/image-tasks.xml"); 
 		
