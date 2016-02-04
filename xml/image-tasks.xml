@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <task xsi:type="imageTask" id="7">
+        <base-url>https://upload.wikimedia.org/wikipedia/commons/thumb/</base-url>
+        <images value= "8662588">4/41/Flag_of_Austria.svg/50px-Flag_of_Austria.svg.png</images>
+        <images value="11190845">6/65/Flag_of_Belgium.svg/50px-Flag_of_Belgium.svg.png</images>
+        <images value="10955000">5/5c/Flag_of_Greece.svg/50px-Flag_of_Greece.svg.png</images>
+        <images value= "1973700">8/84/Flag_of_Latvia.svg/50px-Flag_of_Latvia.svg.png</images>
+        <images value= "5415949">e/e6/Flag_of_Slovakia.svg/50px-Flag_of_Slovakia.svg.png</images>
+        <images value= "2888582">1/11/Flag_of_Lithuania.svg/50px-Flag_of_Lithuania.svg.png</images>
+        <questions>
+            <question xsi:type="extremeValueImageSelectionQuestion" id="q1">
+                <question-text>Select its flag.</question-text>
+                <identifyMinimum>false</identifyMinimum>
+            </question>
+        </questions>
+        <task-description>Which countries has the largest population?</task-description>
+        <task-type></task-type>
+    </task>
+    <task xsi:type="imageTask" id="7">
+        <base-url>https://upload.wikimedia.org/wikipedia/commons/thumb/</base-url>
+        <images value= "8662588">4/41/Flag_of_Austria.svg/50px-Flag_of_Austria.svg.png</images>
+        <images value="11190845">6/65/Flag_of_Belgium.svg/50px-Flag_of_Belgium.svg.png</images>
+        <images value="10955000">5/5c/Flag_of_Greece.svg/50px-Flag_of_Greece.svg.png</images>
+        <images value= "1973700">8/84/Flag_of_Latvia.svg/50px-Flag_of_Latvia.svg.png</images>
+        <images value= "5415949">e/e6/Flag_of_Slovakia.svg/50px-Flag_of_Slovakia.svg.png</images>
+        <images value= "2888582">1/11/Flag_of_Lithuania.svg/50px-Flag_of_Lithuania.svg.png</images>
+        <questions>
+            <question xsi:type="extremeValueImageSelectionQuestion" id="q1">
+                <question-text>Select its flag.</question-text>
+                <identifyMinimum>true</identifyMinimum>
+            </question>
+        </questions>
+        <task-description>Which countries has the smallest population?</task-description>
+        <task-type></task-type>
+    </task>
     <task xsi:type="imageTask" id="6">
         <base-url>https://upload.wikimedia.org/wikipedia/commons/thumb/</base-url>
         <images>4/41/Flag_of_Austria.svg/50px-Flag_of_Austria.svg.png</images>

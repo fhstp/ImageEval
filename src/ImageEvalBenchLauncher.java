@@ -13,6 +13,7 @@ import javax.swing.border.LineBorder;
 
 import evaluation.evalBench.EvaluationDelegate;
 import evaluation.evalBench.EvaluationManager;
+import evaluation.evalBench.images.ExtremeValueImageSelectionQuestion;
 import evaluation.evalBench.images.ImageEvaluationPanelFactory;
 import evaluation.evalBench.images.ImageGrid2;
 import evaluation.evalBench.images.MultiImageSelectionQuestion;
@@ -204,7 +205,8 @@ public class ImageEvalBenchLauncher extends JFrame implements EvaluationDelegate
 		// consider extended tasks in task list creation
 		XMLTaskListCreator taskListCreator = new XMLTaskListCreator();
 		taskListCreator.setClassesToBeBound(TaskList.class, ImageTask.class,
-				SingleImageSelectionQuestion.class, MultiImageSelectionQuestion.class);
+				SingleImageSelectionQuestion.class, MultiImageSelectionQuestion.class,
+				ExtremeValueImageSelectionQuestion.class);
 		EvaluationManager.getInstance().setTaskListCreator(taskListCreator);
 		
 		// create new session group for participant one
