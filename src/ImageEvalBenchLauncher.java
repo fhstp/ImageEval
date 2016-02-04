@@ -19,6 +19,7 @@ import evaluation.evalBench.images.ImageGrid2;
 import evaluation.evalBench.images.MultiImageSelectionQuestion;
 import evaluation.evalBench.images.SingleImageSelectionQuestion;
 import evaluation.evalBench.images.ImageTask;
+import evaluation.evalBench.images.ThresholdValueImageSelectionQuestion;
 import evaluation.evalBench.io.XMLTaskListCreator;
 import evaluation.evalBench.panel.TaskDialog;
 import evaluation.evalBench.session.EvaluationSession;
@@ -206,7 +207,7 @@ public class ImageEvalBenchLauncher extends JFrame implements EvaluationDelegate
 		XMLTaskListCreator taskListCreator = new XMLTaskListCreator();
 		taskListCreator.setClassesToBeBound(TaskList.class, ImageTask.class,
 				SingleImageSelectionQuestion.class, MultiImageSelectionQuestion.class,
-				ExtremeValueImageSelectionQuestion.class);
+				ExtremeValueImageSelectionQuestion.class, ThresholdValueImageSelectionQuestion.class);
 		EvaluationManager.getInstance().setTaskListCreator(taskListCreator);
 		
 		// create new session group for participant one

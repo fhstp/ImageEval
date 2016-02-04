@@ -23,7 +23,7 @@ public class ExtremeValueImageSelectionQuestion extends
 	@XmlTransient
 	private ValuedImage correctImage = null;
 
-	private ValuedImage determineCorrectImage() {
+	private ValuedImage findCorrectImage() {
 		if (correctImage == null) {
 			ValuedImage img = null;
 			Task task = EvaluationManager.getInstance().getSessionGroup().getActiveSubSession().getCurrentTask();
@@ -49,14 +49,14 @@ public class ExtremeValueImageSelectionQuestion extends
      */
 	@Override
 	public ValuedImage getCorrectAnswer() {
-		return determineCorrectImage();
+		return findCorrectImage();
 	}
 
 	@Override
 	public double determineError() {
 		ValuedImage given = super.getGivenAnswer();
 		if (given != null) {
-			if (Double.isNaN(determineCorrectImage().value) ||  Double.isNaN(given.value)) {
+			if (Double.isNaN(findCorrectImage().value) ||  Double.isNaN(given.value)) {
 				return (correctImage == given) ? 0.0 : 1.0;
 			} else {
 				return Math.abs(correctImage.value - given.value);
