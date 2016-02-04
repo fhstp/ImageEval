@@ -1,6 +1,7 @@
 package evaluation.evalBench.images;
 
 import java.util.Iterator;
+import java.util.ResourceBundle;
 
 import evaluation.evalBench.panel.DefaultQuestionPanelStrategy;
 import evaluation.evalBench.task.Question;
@@ -25,7 +26,21 @@ public class ImageSelectionPanelStrategy extends
 
 	@Override
 	public boolean checkForCorrectInput() {
-		return !imageGrid.getSelectedTiles().isEmpty();
+		if (imageGrid.getSelectedTiles().isEmpty()) {
+			if (m_question instanceof SingleImageSelectionQuestion) {
+				super.setErrorMessage(ResourceBundle
+						.getBundle("evaluation.evalBench.images.gui")
+						.getString("error.singleimageselectionquestion.none"));
+			} else {
+				super.setErrorMessage(ResourceBundle
+						.getBundle("evaluation.evalBench.images.gui")
+						.getString("error.multiimageselectionquestion.none"));
+			}
+			return false;
+		} else {
+			super.setErrorMessage("");
+			return true;
+		}
 	}
 
 	@Override
