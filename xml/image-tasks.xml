@@ -32,10 +32,12 @@
         <images value="0.0">b/bc/Flag_of_Finland.svg/50px-Flag_of_Finland.svg.png</images>
         <images value="0.0">d/d4/Flag_of_Cyprus.svg/50px-Flag_of_Cyprus.svg.png</images>
         <questions>
--             <question xsi:type="multiImageSelectionQuestion" id="q1">
+            <question xsi:type="multiImageSelectionQuestion" id="q1">
                 <question-text>Select Greece and Finland.</question-text>
-<!--                 <identifyMinimum>false</identifyMinimum>
-                <correctAnswer>4/41/Flag_of_Austria.svg/50px-Flag_of_Austria.svg.png</correctAnswer>  -->
+                <correctAnswers>
+	                <correctAnswer>5/5c/Flag_of_Greece.svg/50px-Flag_of_Greece.svg.png</correctAnswer>
+	                <correctAnswer>b/bc/Flag_of_Finland.svg/50px-Flag_of_Finland.svg.png</correctAnswer>
+                </correctAnswers>
             </question>
         </questions>
         <task-description>Fun with Flags</task-description>

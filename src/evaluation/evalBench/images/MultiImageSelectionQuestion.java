@@ -2,41 +2,32 @@ package evaluation.evalBench.images;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlElementWrapper;
 
 import evaluation.evalBench.task.Question;
 
 /**
  * @author Alexander Rind
  */
-@XmlAccessorType(XmlAccessType.FIELD)
 public class MultiImageSelectionQuestion extends Question {
 
-	@XmlElement(required=false)
-	private List<ValuedImage> correctImage = null;
+	private List<ValuedImage> correctAnswer = null;
 
-	@XmlTransient
 	private List<ValuedImage> givenAnswer = null;
 
-	public MultiImageSelectionQuestion() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public MultiImageSelectionQuestion(String aQuestionId, String aQuestionText) {
-		super(aQuestionId, aQuestionText);
-		// TODO Auto-generated constructor stub
-	}
-
+	@XmlElementWrapper(name = "correctAnswers", required = false)
 	@Override
-	public Object getCorrectAnswer() {
-		return correctImage;
+	public List<ValuedImage> getCorrectAnswer() {
+		return correctAnswer;
 	}
 
+	public void setCorrectAnswer(List<ValuedImage> correctImage) {
+		this.correctAnswer = correctImage;
+	}
+
+	@XmlElementWrapper(name = "givenAnswers", required = false)
 	@Override
-	public Object getGivenAnswer() {
+	public List<ValuedImage> getGivenAnswer() {
 		return givenAnswer;
 	}
 
