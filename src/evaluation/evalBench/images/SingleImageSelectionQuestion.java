@@ -1,36 +1,34 @@
 package evaluation.evalBench.images;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 import evaluation.evalBench.task.Question;
 
 /**
  * @author Alexander Rind
  */
-@XmlAccessorType(XmlAccessType.FIELD)
 public class SingleImageSelectionQuestion extends Question {
 
-	@XmlElement(required=false)
-	private ValuedImage correctImage = null;
-
-	@XmlTransient
+	private ValuedImage correctAnswer = null;
 	private ValuedImage givenAnswer = null;
 
+	@XmlElement(required=false)
 	@Override
-	public Object getCorrectAnswer() {
-		return correctImage;
+	public ValuedImage getCorrectAnswer() {
+		return correctAnswer;
 	}
 
+	public void setCorrectAnswer(ValuedImage img) {
+		this.correctAnswer = img;
+	}
+
+	@XmlElement(required = false)
 	@Override
-	public Object getGivenAnswer() {
+	public ValuedImage getGivenAnswer() {
         return givenAnswer;
 	}
 
 	public void setGivenAnswer(ValuedImage givenAnswer) {
 		this.givenAnswer = givenAnswer;
 	}
-
 }
