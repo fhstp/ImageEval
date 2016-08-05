@@ -27,7 +27,7 @@ public class ImageSelectionPanelStrategy extends
 	@Override
 	public boolean checkForCorrectInput() {
 		if (imageGrid.getSelectedTiles().isEmpty()) {
-			if (m_question instanceof SingleImageSelectionQuestion) {
+			if (super.getQuestion() instanceof SingleImageSelectionQuestion) {
 				super.setErrorMessage(ResourceBundle
 						.getBundle("evaluation.evalBench.images.gui")
 						.getString("error.singleimageselectionquestion.none"));
@@ -45,12 +45,13 @@ public class ImageSelectionPanelStrategy extends
 
 	@Override
 	public void inputFinished() {
-		if (m_question instanceof SingleImageSelectionQuestion) {
+		Question question = super.getQuestion();
+		if (question instanceof SingleImageSelectionQuestion) {
 			Iterator<ValuedImage> i = imageGrid.getSelectedTiles().iterator();
-			((SingleImageSelectionQuestion) m_question).setGivenAnswer(
+			((SingleImageSelectionQuestion) question).setGivenAnswer(
 					i.hasNext() ? i.next() : null);
-		} else if (m_question instanceof MultiImageSelectionQuestion) {
-			((MultiImageSelectionQuestion) m_question).setGivenAnswer(
+		} else if (question instanceof MultiImageSelectionQuestion) {
+			((MultiImageSelectionQuestion) question).setGivenAnswer(
 					imageGrid.getSelectedTiles());
 		}
 	}
